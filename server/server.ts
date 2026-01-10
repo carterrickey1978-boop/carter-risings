@@ -9,12 +9,14 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://YOURMONGOUSER:YOURPASSWORD@cluster0.mongodb.net/carterrisings?retryWrites=true&w=majority");
+const MONGO_URI = "mongodb+srv://carteradmin:YOURPASSWORD@cluster0.xxxxx.mongodb.net/carterrisings?retryWrites=true&w=majority";
+
+mongoose.connect(MONGO_URI).then(() => console.log("MongoDB connected"));
 
 app.use("/api/affiliates", affiliateRoutes);
 
 app.get("/api", (req, res) => {
-  res.json({ message: "Carter Risings backend" });
+  res.json({ message: "Carter Risings backend live!" });
 });
 
 app.listen(PORT, () => {
