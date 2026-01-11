@@ -7,13 +7,17 @@ const Affiliates: React.FC = () => {
   const [message, setMessage] = useState("");
 
   const handleApply = async () => {
-    const res = await fetch("/api/affiliates/apply", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email }),
-    });
-    const data = await res.json();
-    setMessage(data.message);
+    try {
+      const res = await fetch("https://YOUR_RENDER_BACKEND_URL.onrender.com/api/affiliates/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email }),
+      });
+      const data = await res.json();
+      setMessage(data.message || "Application sent - awaiting approval!");
+    } catch (err) {
+      setMessage("Error - backend not ready yet");
+    }
   };
 
   return (
@@ -47,12 +51,8 @@ const Affiliates: React.FC = () => {
         >
           Apply Now
         </motion.button>
-        {message && <p style={{ marginTop: "2rem", fontSize: "1.3rem" }}>{message}</p>}
+        {message && <p style={{ marginTop: "2rem", fontSize: "1.3rem", color: message.includes("Error") ? "red" : "#FFD700" }}>{message}</p>}
       </div>
-
-      <p style={{ marginTop: "4rem", fontSize: "1.2rem", opacity: 0.8 }}>
-        Admin approval panel coming soon — you'll review applications and generate codes.
-      </p>
     </main>
   );
 };
