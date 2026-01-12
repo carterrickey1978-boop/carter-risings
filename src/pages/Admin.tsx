@@ -32,20 +32,10 @@ const Admin: React.FC = () => {
   if (!authenticated) {
     return (
       <main className="container mx-auto px-6 py-24 text-center">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-5xl font-bold mb-12 text-blue-900"
-        >
+        <motion.h2 className="text-5xl font-bold mb-12 text-blue-900">
           Admin Login
         </motion.h2>
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Password" 
-          className="px-8 py-4 border border-gray-300 rounded-lg mb-8 text-lg"
-        />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="px-8 py-4 border border-gray-300 rounded-lg mb-8 text-lg" />
         <button onClick={handleLogin} className="px-12 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">
           Login
         </button>
