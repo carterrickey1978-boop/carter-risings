@@ -1,58 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 const Affiliates: React.FC = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleApply = async () => {
-    try {
-      const res = await fetch("/api/affiliates/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email }),
-      });
-      const data = await res.json();
-      setMessage(data.message);
-    } catch (err) {
-      setMessage("Error - try again");
-    }
-  };
-
   return (
-    <main style={{ flex: 1, padding: "4rem 2rem", textAlign: "center" }}>
-      <motion.h2 style={{ fontSize: "3rem", marginBottom: "2rem", textShadow: "0 0 20px rgba(255,215,0,0.6)" }}>
+    <main className="container mx-auto px-6 py-16 text-center">
+      <motion.h2 className="text-5xl font-bold mb-12 text-blue-900">
         Join the Carter Risings Affiliates
       </motion.h2>
-      <p style={{ fontSize: "1.5rem", maxWidth: "800px", margin: "0 auto 3rem", opacity: 0.9 }}>
+      <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
         Earn 20% commission promoting e-books, apparel, apps. Approval required.
       </p>
 
-      <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" className="max-w-lg mx-auto bg-white p-12 rounded-2xl shadow-lg">
         <input 
           type="text" 
+          name="name" 
           placeholder="Your Name" 
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{ width: "100%", padding: "1rem", marginBottom: "1rem", borderRadius: "10px", fontSize: "1.2rem", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white" }}
+          required 
+          className="w-full p-4 mb-6 border border-gray-300 rounded-lg text-lg text-gray-900"
         />
         <input 
           type="email" 
+          name="email" 
           placeholder="Your Email" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ width: "100%", padding: "1rem", marginBottom: "2rem", borderRadius: "10px", fontSize: "1.2rem", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)", color: "white" }}
+          required 
+          className="w-full p-4 mb-8 border border-gray-300 rounded-lg text-lg text-gray-900"
         />
         <motion.button 
-          whileHover={{ scale: 1.1 }}
-          onClick={handleApply}
-          style={{ padding: "1.5rem 3rem", background: "linear-gradient(45deg, #FF4500, #FFD700)", color: "white", border: "none", borderRadius: "50px", fontWeight: "bold", boxShadow: "0 0 30px rgba(255,69,0,0.6)" }}
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          className="w-full py-6 bg-blue-600 text-white rounded-lg font-bold text-xl hover:bg-blue-700 transition"
         >
           Apply Now
         </motion.button>
-        {message && <p style={{ marginTop: "2rem", fontSize: "1.3rem", color: "#FFD700" }}>{message}</p>}
-      </div>
+      </form>
+      <p className="mt-8 text-gray-600">
+        Applications sent to your email — approve manually and send unique code.
+      </p>
     </main>
   );
 };
