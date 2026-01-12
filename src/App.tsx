@@ -12,40 +12,38 @@ import Admin from "./pages/Admin.tsx";
 const App: React.FC = () => {
   const location = useLocation();
 
+  const isActive = (path: string) => location.pathname === path ? "text-blue-600 font-bold" : "text-gray-700";
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Hero Header */}
-      <header className="bg-white shadow-lg">
-        <div className="container mx-auto px-6 py-12 text-center">
+      {/* Premium Header */}
+      <header className="bg-white shadow-sm border-b">
+        <div className="container mx-auto px-6 py-8 text-center">
           <motion.h1 
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-6xl font-bold text-blue-900"
+            className="text-5xl md:text-6xl font-bold text-blue-900"
           >
             CARTER RISINGS
           </motion.h1>
-          <p className="text-2xl text-gray-600 mt-4">
+          <p className="text-xl md:text-2xl text-gray-600 mt-4">
             Ascend • Empower • Rise
           </p>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            className="mt-8 px-8 py-4 bg-blue-600 text-white rounded-full text-lg font-semibold shadow-lg"
-          >
-            Shop Now
-          </motion.button>
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="bg-blue-900 py-4 sticky top-0 z-50 shadow-md">
-        <div className="container mx-auto px-6 flex justify-center gap-8">
-          <Link to="/" className="text-white text-lg font-medium hover:text-blue-300 transition">Home</Link>
-          <Link to="/ebooks" className="text-white text-lg font-medium hover:text-blue-300 transition">E-Books</Link>
-          <Link to="/apparel" className="text-white text-lg font-medium hover:text-blue-300 transition">Apparel</Link>
-          <Link to="/apps" className="text-white text-lg font-medium hover:text-blue-300 transition">Apps</Link>
-          <Link to="/affiliates" className="text-white text-lg font-medium hover:text-blue-300 transition">Affiliates</Link>
-          <Link to="/cart" className="text-white text-lg font-medium hover:text-blue-300 transition">Cart</Link>
-          <Link to="/admin" className="text-white text-lg font-medium hover:text-blue-300 transition">Admin</Link>
+      {/* Premium Navigation */}
+      <nav className="bg-white border-b">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex justify-center gap-10 flex-wrap">
+            <Link to="/" className={`text-lg font-medium transition ${isActive("/")}`}>Home</Link>
+            <Link to="/ebooks" className={`text-lg font-medium transition ${isActive("/ebooks")}`}>E-Books</Link>
+            <Link to="/apparel" className={`text-lg font-medium transition ${isActive("/apparel")}`}>Apparel</Link>
+            <Link to="/apps" className={`text-lg font-medium transition ${isActive("/apps")}`}>Apps</Link>
+            <Link to="/affiliates" className={`text-lg font-medium transition ${isActive("/affiliates")}`}>Affiliates</Link>
+            <Link to="/cart" className={`text-lg font-medium transition ${isActive("/cart")}`}>Cart</Link>
+            <Link to="/admin" className={`text-lg font-medium transition ${isActive("/admin")}`}>Admin</Link>
+          </div>
         </div>
       </nav>
 
@@ -59,8 +57,8 @@ const App: React.FC = () => {
         <Route path="/admin" element={<Admin />} />
       </Routes>
 
-      <footer className="bg-blue-900 text-white py-8 mt-auto">
-        <div className="container mx-auto px-6 text-center">
+      <footer className="bg-gray-100 py-12 mt-auto">
+        <div className="container mx-auto px-6 text-center text-gray-600">
           <p className="text-lg">© 2026 Carter Risings • All Rights Reserved</p>
           <p className="mt-2">Built for the Future</p>
         </div>
