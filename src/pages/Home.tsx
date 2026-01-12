@@ -1,50 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useCart } from "../store/cartStore";
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState([]);
-  const { addItem } = useCart();
 
   useEffect(() => {
-    fetch("/api/products")
-      .then(res => res.json())
-      .then(data => setProducts(data));
+    const saved = JSON.parse(localStorage.getItem("products") || "[]");
+    setProducts(saved);
   }, []);
 
   return (
-    <main style={{ flex: 1, padding: "4rem 2rem", textAlign: "center" }}>
-      <motion.h2 style={{ fontSize: "3rem", marginBottom: "2rem", textShadow: "0 0 20px rgba(255,215,0,0.6)" }}>
-        Featured Products
+    <main className="container mx-auto px-6 py-12">
+      <motion.h2 className="text-4xl font-bold text-center mb-12 text-blue-900">
+        Product Catalogue
       </motion.h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "3rem", maxWidth: "1400px", margin: "0 auto" }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {products.length === 0 && <p className="text-center col-span-full text-2xl">No products yet — add in /admin</p>}
         {products.map((product, i) => (
-          <motion.div key={product._id} 
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.2 }}
-            whileHover={{ scale: 1.05, y: -10 }}
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              padding: "2rem",
-              borderRadius: "20px",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              boxShadow: "0 0 30px rgba(255,215,0,0.3)"
-            }}
+          <motion.div 
+            key={i}
+            whileHover={{ scale: 1.05 }}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
           >
-            <div style={{ background: "#333", height: "250px", borderRadius: "15px", marginBottom: "1.5rem" }} />
-            <h4 style={{ fontSize: "1.8rem" }}>{product.name}</h4>
-            <p style={{ color: "#aaa" }}>{product.type}</p>
-            <p style={{ fontSize: "2rem", fontWeight: "bold", color: "#FFD700" }}>${product.price}</p>
-            <motion.button 
-              whileHover={{ scale: 1.1 }}
-              onClick={() => addItem({ id: product._id, name: product.name, price: product.price })}
-              style={{ padding: "1rem 2.5rem", background: "#FFD700", color: "#000", border: "none", borderRadius: "50px", fontWeight: "bold" }}
-            >
-              Add to Cart
-            </motion.button>
+            <img src={product.image || "https://via.placeholder.com/400x500"} alt={product.name} className="w-full h-96 object-cover" />
+            <div className="p-8">
+              <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+              <p className="text-gray-600 mb-4">{product.description}</p>
+              <p className="text-3xl font-bold text-blue-600 mb-6">${product.price}</p>
+              <button className="w-full py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">
+                Add to Cart
+              </button>
+            </div>
           </motion.div>
         ))}
       </div>

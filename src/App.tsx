@@ -6,49 +6,47 @@ import EBooks from "./pages/EBooks.tsx";
 import Apparel from "./pages/Apparel.tsx";
 import Apps from "./pages/Apps.tsx";
 import Affiliates from "./pages/Affiliates.tsx";
+import Cart from "./pages/Cart.tsx";
+import Admin from "./pages/Admin.tsx";
 
 const App: React.FC = () => {
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path ? { fontWeight: "bold", color: "#FFD700", textShadow: "0 0 10px #FFD700" } : {};
-
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <motion.header 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1, type: "spring" }}
-        style={{
-          background: "linear-gradient(135deg, rgba(255,69,0,0.8), rgba(255,215,0,0.8))",
-          padding: "3rem",
-          textAlign: "center",
-          backdropFilter: "blur(10px)",
-          boxShadow: "0 8px 32px rgba(255,105,180,0.4)",
-          borderBottom: "1px solid rgba(255,255,255,0.2)"
-        }}
-      >
-        <h1 style={{ fontSize: "4.5rem", textShadow: "0 0 20px #FF4500, 0 0 40px #FFD700" }}>
-          CARTER RISINGS
-        </h1>
-        <p style={{ fontSize: "1.8rem", marginTop: "0.5rem", textShadow: "0 0 10px #ffffff" }}>
-          ASCEND • EMPOWER • RISE
-        </p>
-      </motion.header>
+    <div className="min-h-screen flex flex-col">
+      {/* Hero Header */}
+      <header className="bg-white shadow-lg">
+        <div className="container mx-auto px-6 py-12 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-6xl font-bold text-blue-900"
+          >
+            CARTER RISINGS
+          </motion.h1>
+          <p className="text-2xl text-gray-600 mt-4">
+            Ascend • Empower • Rise
+          </p>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            className="mt-8 px-8 py-4 bg-blue-600 text-white rounded-full text-lg font-semibold shadow-lg"
+          >
+            Shop Now
+          </motion.button>
+        </div>
+      </header>
 
-      <nav style={{
-        background: "rgba(0,0,0,0.6)",
-        padding: "1.5rem",
-        textAlign: "center",
-        backdropFilter: "blur(10px)",
-        position: "sticky",
-        top: 0,
-        zIndex: 10
-      }}>
-        <Link to="/" style={{ color: "#fff", margin: "0 2rem", fontSize: "1.3rem", textDecoration: "none", transition: "all 0.3s", ...isActive("/") }} className="nav-link">HOME</Link>
-        <Link to="/ebooks" style={{ color: "#fff", margin: "0 2rem", fontSize: "1.3rem", textDecoration: "none", transition: "all 0.3s", ...isActive("/ebooks") }} className="nav-link">E-BOOKS</Link>
-        <Link to="/apparel" style={{ color: "#fff", margin: "0 2rem", fontSize: "1.3rem", textDecoration: "none", transition: "all 0.3s", ...isActive("/apparel") }} className="nav-link">APPAREL</Link>
-        <Link to="/apps" style={{ color: "#fff", margin: "0 2rem", fontSize: "1.3rem", textDecoration: "none", transition: "all 0.3s", ...isActive("/apps") }} className="nav-link">APPS</Link>
-        <Link to="/affiliates" style={{ color: "#fff", margin: "0 2rem", fontSize: "1.3rem", textDecoration: "none", transition: "all 0.3s", ...isActive("/affiliates") }} className="nav-link">AFFILIATES</Link>
+      {/* Navigation */}
+      <nav className="bg-blue-900 py-4 sticky top-0 z-50 shadow-md">
+        <div className="container mx-auto px-6 flex justify-center gap-8">
+          <Link to="/" className="text-white text-lg font-medium hover:text-blue-300 transition">Home</Link>
+          <Link to="/ebooks" className="text-white text-lg font-medium hover:text-blue-300 transition">E-Books</Link>
+          <Link to="/apparel" className="text-white text-lg font-medium hover:text-blue-300 transition">Apparel</Link>
+          <Link to="/apps" className="text-white text-lg font-medium hover:text-blue-300 transition">Apps</Link>
+          <Link to="/affiliates" className="text-white text-lg font-medium hover:text-blue-300 transition">Affiliates</Link>
+          <Link to="/cart" className="text-white text-lg font-medium hover:text-blue-300 transition">Cart</Link>
+          <Link to="/admin" className="text-white text-lg font-medium hover:text-blue-300 transition">Admin</Link>
+        </div>
       </nav>
 
       <Routes>
@@ -57,16 +55,15 @@ const App: React.FC = () => {
         <Route path="/apparel" element={<Apparel />} />
         <Route path="/apps" element={<Apps />} />
         <Route path="/affiliates" element={<Affiliates />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
 
-      <footer style={{
-        background: "rgba(0,0,0,0.8)",
-        color: "#aaa",
-        textAlign: "center",
-        padding: "2rem",
-        marginTop: "auto"
-      }}>
-        © 2026 Carter Risings • All Rights Reserved • Built for the Future
+      <footer className="bg-blue-900 text-white py-8 mt-auto">
+        <div className="container mx-auto px-6 text-center">
+          <p className="text-lg">© 2026 Carter Risings • All Rights Reserved</p>
+          <p className="mt-2">Built for the Future</p>
+        </div>
       </footer>
     </div>
   );

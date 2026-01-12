@@ -1,50 +1,48 @@
 {
-    "name":  "carterrisingswebsite",
-    "version":  "1.0.0",
-    "description":  "",
-    "main":  "index.js",
-    "scripts":  {
-                    "dev":  "vite",
-                    "build":  "vite build \u0026\u0026 tsc -p tsconfig.server.json",
-                    "preview":  "vite preview",
-                    "test":  "echo \"Error: no test specified\" \u0026\u0026 exit 1"
-                },
-    "keywords":  [
-
-                 ],
-    "author":  "",
-    "license":  "ISC",
-    "dependencies":  {
-                         "@stripe/stripe-js":  "^8.6.1",
-                         "@tanstack/react-query":  "^5.90.16",
-                         "@types/react-router-dom":  "^5.3.3",
-                         "concurrently":  "^8.2.2",
-                         "cors":  "^2.8.5",
-                         "express":  "^4.19.2",
-                         "framer-motion":  "^11.18.2",
-                         "helmet":  "^7.1.0",
-                         "jsonwebtoken":  "^9.0.2",
-                         "mongoose":  "^8.21.0",
-                         "nodemailer":  "^6.9.15",
-                         "nodemon":  "^3.1.7",
-                         "react":  "^19.2.3",
-                         "react-dom":  "^19.2.3",
-                         "react-router-dom":  "^6.30.3",
-                         "stripe":  "^16.12.0",
-                         "three":  "^0.169.0",
-                         "zustand":  "^5.0.9"
-                     },
-    "devDependencies":  {
-                            "@types/cors":  "^2.8.19",
-                            "@types/express":  "^5.0.6",
-                            "@types/mongoose":  "^5.11.96",
-                            "@types/node":  "^22.19.5",
-                            "@types/react":  "^18.3.11",
-                            "@types/react-dom":  "^18.3.0",
-                            "@types/three":  "^0.169.0",
-                            "@vitejs/plugin-react":  "^4.3.2",
-                            "ts-node":  "^10.9.2",
-                            "typescript":  "^5.9.3",
-                            "vite":  "^5.4.8"
-                        }
+    "name": "carterrisingswebsite",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build && tsc -p tsconfig.server.json",
+        "preview": "vite preview",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@stripe/stripe-js": "^8.6.1",
+        "@tanstack/react-query": "^5.90.16",
+        "@types/react-router-dom": "^5.3.3",
+        "concurrently": "^8.2.2",
+        "cors": "^2.8.5",
+        "express": "^4.19.2",
+        "framer-motion": "^11.18.2",
+        "helmet": "^7.1.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.21.0",
+        "nodemailer": "^6.9.15",
+        "nodemon": "^3.1.7",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
+        "react-router-dom": "^6.30.3",
+        "stripe": "^16.12.0",
+        "three": "^0.169.0",
+        "zustand": "^5.0.9"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/mongoose": "^5.11.96",
+        "@types/node": "^22.19.5",
+        "@types/react": "^18.3.11",
+        "@types/react-dom": "^18.3.0",
+        "@types/three": "^0.169.0",
+        "@vitejs/plugin-react": "^4.3.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3",
+        "vite": "^5.4.8"
+    }
 }
