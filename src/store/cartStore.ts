@@ -4,33 +4,39 @@ type CartItem = {
   id: string;
   name: string;
   price: number;
+  image: string;
+  description: string;
   quantity: number;
 };
 
 type CartStore = {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "quantity">) => void;
+  addItem: (product: Omit<CartItem, "quantity">) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
+  getTotalItems: () => number;
 };
 
 export const useCart = create<CartStore>((set, get) => ({
-  items: [],
-  addItem: (item) =>
-    set((state) => {
-      const existing = state.items.find((i) => i.id === item.id);
-      if (existing) {
-        return {
-          items: state.items.map((i) =>
-            i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-          ),
-        };
-      }
-      return { items: [...state.items, { ...item, quantity: 1 }] };
-    }),
-  removeItem: (id) =>
-    set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
-  clearCart: () => set({ items: [] }),
+  items: JSON.parse(localStorage.getItem("carterCart") || "[]"),
+  addItem: (product) => set((state) => {
+    const existing = state.items.find(i => i.id === product.id);
+    const updated = existing 
+      ? state.items.map(i => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i)
+      : [...state.items, { ...product, quantity: 1 }];
+    localStorage.setItem("carterCart", JSON.stringify(updated));
+    return { items: updated };
+  }),
+  removeItem: (id) => set((state) => {
+    const updated = state.items.filter(i => i.id !== id);
+    localStorage.setItem("carterCart", JSON.stringify(updated));
+    return { items: updated };
+  }),
+  clearCart: () => {
+    localStorage.setItem("carterCart", "[]");
+    set({ items: [] });
+  },
   getTotalPrice: () => get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+  getTotalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
 }));

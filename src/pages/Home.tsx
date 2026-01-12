@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useCart } from "../store/cartStore";
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState([]);
+  const { addItem } = useCart();
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("carterProducts") || "[]");
@@ -35,7 +37,7 @@ const Home: React.FC = () => {
             className="bg-white rounded-xl shadow-lg overflow-hidden"
           >
             <img 
-              src={product.image || "https://via.placeholder.com/600x400?text=Product+Image"} 
+              src={product.image || "https://via.placeholder.com/600x400"} 
               alt={product.name} 
               className="w-full h-96 object-cover"
             />
@@ -43,7 +45,10 @@ const Home: React.FC = () => {
               <h3 className="text-3xl font-bold mb-4">{product.name}</h3>
               <p className="text-gray-600 mb-6 text-lg">{product.description}</p>
               <p className="text-4xl font-bold text-blue-600 mb-8">${product.price}</p>
-              <button className="w-full py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">
+              <button 
+                onClick={() => addItem({ id: String(i), name: product.name, price: product.price, image: product.image, description: product.description })}
+                className="w-full py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition"
+              >
                 Add to Cart
               </button>
             </div>
