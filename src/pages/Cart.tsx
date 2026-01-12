@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { useCart } from "../store/cartStore";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51OQJ9mSHc9TESTKEYPLACEHOLDER"); // Use env var for real key
+const stripePromise = loadStripe("pk_test_51OQJ9mSHc9TESTPLACEHOLDERKEY"); // Replace with real pk_test_ key from Stripe dashboard
 
 const Cart: React.FC = () => {
-  const { items, getTotalPrice, clearCart } = useCart();
+  const { items, getTotalPrice } = useCart();
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
