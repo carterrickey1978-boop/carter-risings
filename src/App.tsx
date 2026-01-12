@@ -69,7 +69,7 @@ const App: React.FC = () => {
 
       <footer className="bg-gray-100 py-12 mt-auto">
         <div className="container mx-auto px-6 text-center text-gray-600">
-          <p className="text-lg">© 2026 Carter Risings • All Rights Reserved</p>
+          <p className="text-lg">© 2026 - Updated! Carter Risings • All Rights Reserved</p>
           <p className="mt-2">Built for the Future</p>
         </div>
       </footer>
@@ -78,3 +78,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
