@@ -45,7 +45,14 @@ const App: React.FC = () => {
             <Link to="/apps" className={`text-lg font-medium transition ${isActive("/apps")}`}>Apps</Link>
             <Link to="/affiliates" className={`text-lg font-medium transition ${isActive("/affiliates")}`}>Affiliates</Link>
             <div className="relative">
-              <Link to="/cart" className={`text-lg font-medium transition ${isActive("/cart")}`}>Cart</Link>
+              <div className="relative">
+    <Link to="/cart" className={`text-lg font-medium transition ${isActive("/cart")}`}>Cart</Link>
+    {useCart.getState().getTotalItems() > 0 && (
+      <span className="absolute -top-3 -right-5 bg-red-600 text-white text-sm rounded-full w-8 h-8 flex items-center justify-center font-bold">
+        {useCart.getState().getTotalItems()}
+      </span>
+    )}
+  </div>
               {cartCount > 0 && (
                 <span className="absolute -top-3 -right-5 bg-red-600 text-white text-sm rounded-full w-8 h-8 flex items-center justify-center font-bold">
                   {cartCount}
@@ -78,5 +85,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
 
 

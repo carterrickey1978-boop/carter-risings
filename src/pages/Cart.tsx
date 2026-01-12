@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { useCart } from "../store/cartStore";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe("pk_test_51OQJ9mSHc9YOURREALTESTKEYHERE");  # Replace with your pk_test_ key from Stripe dashboard
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51OQJ9mSHc9TESTKEYPLACEHOLDER"); // Use env var for real key
 
 const Cart: React.FC = () => {
-  const { items, getTotalPrice } = useCart();
+  const { items, getTotalPrice, clearCart } = useCart();
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
@@ -31,9 +31,9 @@ const Cart: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <main className="container mx-auto px-6 py-16 text-center">
+      <main className="container mx-auto px-6 py-24 text-center">
         <h2 className="text-5xl font-bold mb-8 text-blue-900">Your Cart is Empty</h2>
-        <p className="text-xl text-gray-600">Add products from the catalogue to start shopping!</p>
+        <p className="text-xl text-gray-600">Add products to start rising!</p>
       </main>
     );
   }
