@@ -20,7 +20,9 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Premium Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-green-600 text-white shadow-sm border-b py-8 text-center">
+    <p className="text-3xl font-bold">SITE UPDATED - NEW PREMIUM DESIGN LIVE!</p>
+  </header>
         <div className="container mx-auto px-6 py-8 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
@@ -85,6 +87,7 @@ const App: React.FC = () => {
 };
 
 export default App;
+
 
 
 
