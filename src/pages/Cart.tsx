@@ -3,16 +3,15 @@ import { motion } from "framer-motion";
 import { useCart } from "../store/cartStore";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe("pk_test_51TestKeyUseThisForSandboxOnlyReplaceLater");
+const stripePromise = loadStripe("pk_test_51OQJ9mSHc9YOURREALTESTKEYHERE");  # Replace with your pk_test_ key from Stripe dashboard
 
 const Cart: React.FC = () => {
-  const { items, getTotalPrice, clearCart } = useCart();
+  const { items, getTotalPrice } = useCart();
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
     if (!stripe) return;
 
-    // Simple client-only checkout with test mode line items
     const { error } = await stripe.redirectToCheckout({
       lineItems: items.map(item => ({
         price_data: {
@@ -32,66 +31,43 @@ const Cart: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <main style={{ flex: 1, padding: "4rem", textAlign: "center" }}>
-        <h2 style={{ fontSize: "3rem" }}>Your Cart is Empty</h2>
-        <p style={{ fontSize: "1.5rem", marginTop: "2rem" }}>Add products to start rising!</p>
+      <main className="container mx-auto px-6 py-16 text-center">
+        <h2 className="text-5xl font-bold mb-8 text-blue-900">Your Cart is Empty</h2>
+        <p className="text-xl text-gray-600">Add products from the catalogue to start shopping!</p>
       </main>
     );
   }
 
   return (
-    <main style={{ flex: 1, padding: "4rem 2rem" }}>
-      <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontSize: "3rem", textAlign: "center", marginBottom: "3rem" }}>
+    <main className="container mx-auto px-6 py-16">
+      <motion.h2 className="text-5xl font-bold text-center mb-16 text-blue-900">
         Your Cart
       </motion.h2>
 
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+      <div className="max-w-4xl mx-auto">
         {items.map((item, i) => (
           <motion.div 
-            key={item.id}
+            key={i}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              padding: "1.5rem",
-              borderRadius: "15px",
-              marginBottom: "1.5rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backdropFilter: "blur(10px)"
-            }}
+            className="bg-white rounded-xl shadow-lg p-8 mb-8 flex justify-between items-center"
           >
             <div>
-              <h3 style={{ fontSize: "1.8rem" }}>{item.name}</h3>
-              <p style={{ color: "#aaa" }}>Quantity: {item.quantity}</p>
+              <h3 className="text-3xl font-bold mb-2">{item.name}</h3>
+              <p className="text-gray-600">Quantity: {item.quantity}</p>
             </div>
-            <p style={{ fontSize: "1.8rem", color: "#FFD700" }}>${(item.price * item.quantity).toFixed(2)}</p>
+            <p className="text-3xl font-bold text-blue-600">${(item.price * item.quantity).toFixed(2)}</p>
           </motion.div>
         ))}
 
-        <div style={{ textAlign: "right", marginTop: "3rem" }}>
-          <h3 style={{ fontSize: "2.5rem", marginBottom: "2rem" }}>
-            Total: <span style={{ color: "#FFD700" }}>${getTotalPrice().toFixed(2)}</span>
-          </h3>
-          <motion.button 
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleCheckout}
-            style={{
-              padding: "1.5rem 3rem",
-              fontSize: "1.5rem",
-              background: "linear-gradient(45deg, #FF4500, #FFD700)",
-              color: "white",
-              border: "none",
-              borderRadius: "50px",
-              cursor: "pointer",
-              boxShadow: "0 0 30px rgba(255,69,0,0.6)"
-            }}
-          >
+        <div className="text-right">
+          <p className="text-4xl font-bold mb-8">
+            Total: <span className="text-blue-600">${getTotalPrice().toFixed(2)}</span>
+          </p>
+          <button onClick={handleCheckout} className="px-12 py-6 bg-blue-600 text-white rounded-lg font-bold text-xl hover:bg-blue-700 transition">
             Checkout with Stripe (Test Mode)
-          </motion.button>
+          </button>
         </div>
       </div>
     </main>

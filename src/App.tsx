@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useCart } from "./store/cartStore";
 import Home from "./pages/Home.tsx";
 import EBooks from "./pages/EBooks.tsx";
 import Apparel from "./pages/Apparel.tsx";
@@ -11,6 +12,8 @@ import Admin from "./pages/Admin.tsx";
 
 const App: React.FC = () => {
   const location = useLocation();
+  const { getTotalItems } = useCart();
+  const cartCount = getTotalItems();
 
   const isActive = (path: string) => location.pathname === path ? "text-blue-600 font-bold" : "text-gray-700";
 
@@ -32,7 +35,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Premium Navigation */}
+      {/* Premium Navigation with Cart Badge */}
       <nav className="bg-white border-b">
         <div className="container mx-auto px-6 py-6">
           <div className="flex justify-center gap-10 flex-wrap">
@@ -41,7 +44,14 @@ const App: React.FC = () => {
             <Link to="/apparel" className={`text-lg font-medium transition ${isActive("/apparel")}`}>Apparel</Link>
             <Link to="/apps" className={`text-lg font-medium transition ${isActive("/apps")}`}>Apps</Link>
             <Link to="/affiliates" className={`text-lg font-medium transition ${isActive("/affiliates")}`}>Affiliates</Link>
-            <Link to="/cart" className={`text-lg font-medium transition ${isActive("/cart")}`}>Cart</Link>
+            <div className="relative">
+              <Link to="/cart" className={`text-lg font-medium transition ${isActive("/cart")}`}>Cart</Link>
+              {cartCount > 0 && (
+                <span className="absolute -top-3 -right-5 bg-red-600 text-white text-sm rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                  {cartCount}
+                </span>
+              )}
+            </div>
             <Link to="/admin" className={`text-lg font-medium transition ${isActive("/admin")}`}>Admin</Link>
           </div>
         </div>
